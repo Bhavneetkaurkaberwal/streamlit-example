@@ -8,14 +8,28 @@ faq_data = {
 }
 
 def get_answer(question):
-    # Get the closest match to the question from the FAQ data
-    # For a real application, you'd likely use a more advanced method, like cosine similarity or a machine learning model
     return faq_data.get(question, "Sorry, I don't have an answer to that.")
 
-st.title("Simple FAQ Chatbot with Streamlit")
+st.title("Conversation-style FAQ Chatbot with Streamlit")
 
-user_input = st.text_input("Ask a question:")
+# This uses session state to keep chat history
+# Check if 'chat_history' is already in the session state
+if 'chat_history' not in st.session_state:
+    st.session_state.chat_history = []
+
+user_input = st.text_input("You:")
 
 if user_input:
     answer = get_answer(user_input)
-    st.write(answer)
+    
+    # Append user's question and bot's answer to chat history
+    st.session_state.chat_history.append(("You", user_input))
+    st.session_state.chat_history.append(("Bot", answer))
+    user_input = ""  # Reset the user input
+
+# Display chat history
+for role, text in st.session_state.chat_history:
+    if role == "You":
+        st.markdown(f"**{role}:** {text}")
+    else:
+        st.markdown(f"{role}: {text}")
