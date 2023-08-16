@@ -1,43 +1,21 @@
 import streamlit as st
 
-"""
-# Welcome to Streamlit!
+# Sample FAQ Data (You can expand this or use a more advanced data source)
+faq_data = {
+    "What is your name?": "I'm a FAQ chatbot built with Streamlit.",
+    "How do you work?": "I match your questions with the best answer from my FAQ database.",
+    "Who created you?": "I was created using OpenAI's GPT and demonstrated with Streamlit."
+}
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+def get_answer(question):
+    # Get the closest match to the question from the FAQ data
+    # For a real application, you'd likely use a more advanced method, like cosine similarity or a machine learning model
+    return faq_data.get(question, "Sorry, I don't have an answer to that.")
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+st.title("Simple FAQ Chatbot with Streamlit")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+user_input = st.text_input("Ask a question:")
 
-
-class FAQChatbot:
-    def __init__(self):
-        self.faq_database = {
-            "What is ChatGPT Mini?": "ChatGPT Mini is a smaller version of the ChatGPT model designed for quick responses.",
-            "How much does ChatGPT Mini cost?": "ChatGPT Mini is available for free for limited usage. For extended usage, please refer to our pricing page.",
-            "How can I integrate ChatGPT Mini into my website?": "You can integrate ChatGPT Mini using our provided APIs. Documentation is available on our official website.",
-            "Is there customer support for ChatGPT Mini?": "Yes, we offer 24/7 customer support for ChatGPT Mini subscribers.",
-            "Is my data safe with ChatGPT Mini?": "Yes, we prioritize user data privacy and do not store any personal data from user queries."
-        }
-
-    def get_response(self, query):
-        response = self.faq_database.get(query, "Sorry, I don't have an answer for that. Please check our official website or contact support.")
-        return response
-
-    def demo(self):
-        while True:
-            user_input = input("You: ")
-            if user_input.lower() in ['exit', 'quit', 'bye']:
-                print("Chatbot: Goodbye!")
-                break
-            response = self.get_response(user_input)
-            print("Chatbot:", response)
-
-
-# Let's demo the chatbot
-if __name__ == "__main__":
-    bot = FAQChatbot()
-    print("ChatGPT Mini FAQ Chatbot! Type 'exit' to quit.")
-    bot.demo()
+if user_input:
+    answer = get_answer(user_input)
+    st.write(answer)
