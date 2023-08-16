@@ -47,7 +47,7 @@ if user_input:
     st.session_state.chat_history.append(("Bot", answer))
     
     # Clear the input field by setting its value to an empty string
-    st.session_state.user_input_key = ""  
+    # st.session_state.user_input_key = ""  
 
 # Display chat history
 for role, text in st.session_state.chat_history:
